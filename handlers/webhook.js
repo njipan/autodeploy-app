@@ -14,7 +14,11 @@ const makeWebhookHanlder = ({ repos, shell, fs }) => {
       const stream = fs.createWriteStream(__dirname + "/../deploy_log.txt", {
         flags: "a+"
       });
-      stream.write(`${repoName}:${branch} incoming ${after}\n`);
+      stream.write(
+        `${repoName}:${branch}:${branch}:${new Date(
+          Date.now()
+        ).toLocaleString()} incoming ${after}\n`
+      );
 
       await shell.cd("..");
       const cmd = await shell.exec(repoConfig.script_deploy_path);
