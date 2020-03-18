@@ -1,7 +1,12 @@
 const fastify = require("fastify")({ logger: true });
 const { webhookHandler } = require("./handlers");
 
-fastify.get("/", webhookHandler);
+fastify.get("/", async (req, res) => {
+  return res.send({
+    author: "Panji Kurnia Nugroho",
+    github: "https://github.com/njipan"
+  });
+});
 fastify.post("/", webhookHandler);
 
 const start = async () => {
