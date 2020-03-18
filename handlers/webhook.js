@@ -1,5 +1,5 @@
 const makeWebhookHanlder = ({ repos, shell }) => {
-  return (req, res) => {
+  return async (req, res) => {
     try {
       const eventName = req.headers["x-github-event"] || "";
       const prefixBranch = "refs/heads/";
@@ -13,7 +13,7 @@ const makeWebhookHanlder = ({ repos, shell }) => {
       awaitshell.cd("..");
       await shell.exec(repoConfig.script_deploy_path);
     } catch (e) {
-      console.log("Error: ", e);
+      if (e) console.log("Error: ", e);
     }
     return res.send({ status: "success" });
   };
