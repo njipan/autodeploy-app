@@ -22,8 +22,7 @@ const makeWebhookHanlder = ({ repos, shell, fs }) => {
 
       await shell.cd("..");
       const cmd = await shell.exec(repoConfig.script_deploy_path);
-      const codeSuccess = cmd.code || 1;
-      if (codeSuccess == 0) {
+      if (cmd.code == 0) {
         stream.write(
           `${repoName}:${branch}:${new Date(
             Date.now()
