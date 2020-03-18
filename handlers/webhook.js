@@ -11,18 +11,26 @@ const makeWebhookHanlder = ({ repos, shell, fs }) => {
       if (eventName != repoConfig.event) throw null;
       if (branch !== repoConfig.branch) throw null;
 
-      const stream = fs.createWriteStream("../deploy_log.txt", { flags: "a+" });
+      const stream = fs.createWriteStream(__dirname + "/../deploy_log.txt", {
+        flags: "a+"
+      });
       stream.write(`${repoName}:${branch} incoming ${after}\n`);
 
       await shell.cd("..");
       const cmd = await shell.exec(repoConfig.script_deploy_path);
       const codeSuccess = cmd.code || 1;
-      if (codeSuccess === 0) {
+      if (codeSuccess == 0) {
         stream.write(
-          `${repoName}:${branch} ${after} deployed successfully\n\n`
+          `${repoName}:${branch}:${new Date(
+            Date.now()
+          ).toLocaleString()} ${after} deployed successfully\n\n`
         );
       } else {
-        stream.write(`${repoName}:${branch} ${after} failed\n\n`);
+        stream.write(
+          `${repoName}:${branch}:${new Date(
+            Date.now()
+          ).toLocaleString()} ${after} failed\n\n`
+        );
       }
       stream.end();
     } catch (e) {
