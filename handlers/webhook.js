@@ -10,7 +10,7 @@ const makeWebhookHanlder = ({ repos, shell }) => {
       if (eventName != repoConfig.event) throw null;
       if (branch !== repoConfig.branch) throw null;
 
-      awaitshell.cd("..");
+      await shell.cd("..");
       await shell.exec(repoConfig.script_deploy_path);
     } catch (e) {
       if (e) console.log("Error: ", e);
