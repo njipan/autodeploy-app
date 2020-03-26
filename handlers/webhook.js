@@ -7,15 +7,14 @@ const makeWebhookHanlder = ({ repos, shell, fs }) => {
       const repoName = req.body.repository.name || "";
       const after = req.body.after || "NO-AFTER";
 
-      const repoConfig = repos[repoName] || {};
+      const repoConfig = repos[repoName][branch] || {};
       if (eventName != repoConfig.event) throw null;
-      if (branch !== repoConfig.branch) throw null;
 
       const stream = fs.createWriteStream(__dirname + "/../deploy_log.txt", {
         flags: "a+"
       });
       stream.write(
-        `${repoName}:${branch}:${branch}:${new Date(
+        `${repoName}:${branch}:${new Date(
           Date.now()
         ).toLocaleString()} incoming ${after}\n`
       );

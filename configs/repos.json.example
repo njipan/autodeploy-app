@@ -1,7 +1,12 @@
 {
   "teje-system": {
-    "branch": "master",
-    "script_deploy_path": "/home/git-deploy/scripts/teje-system/deploy.sh",
-    "event": "push"
+    "master": {
+      "script_deploy_path": "/home/git-deploy/scripts/teje-system/deploy.sh",
+      "event": "push"
+    },
+    "dev": {
+      "script_deploy_path": "/home/git-deploy/scripts/teje-system/deploy.sh",
+      "event": "push"
+    }
   }
 }
