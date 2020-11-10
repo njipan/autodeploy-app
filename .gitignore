@@ -1,3 +1,6 @@
 /node_modules
 
 /configs/repos.json
+deploy_log.txt
+log.txt
+

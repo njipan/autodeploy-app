@@ -8,7 +8,8 @@ const makeWebhookHanlder = ({ repos, shell, fs }) => {
       const after = req.body.after || "NO-AFTER";
 
       const repoConfig = repos[repoName][branch] || {};
-      if (eventName != repoConfig.event) throw null;
+      if (typeof repoConfig.event == 'string' && eventName != repoConfig.event) throw null;
+      if(Array.isArray(repoConfig.event) && !repoConfig.event.includes(eventName)) throw null;
 
       const stream = fs.createWriteStream(__dirname + "/../deploy_log.txt", {
         flags: "a+"

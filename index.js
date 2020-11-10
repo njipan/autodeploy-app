@@ -1,4 +1,9 @@
-const fastify = require("fastify")({ logger: true });
+const fastify = require("fastify")({
+	logger: {
+    		level: 'info',
+    		file: 'log.txt' // will use pino.destination()
+  	}
+});
 const { webhookHandler } = require("./handlers");
 
 fastify.get("/", async (req, res) => {
